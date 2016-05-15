@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.CommodityDao">
+
+    <!-- 根据日期取最近的报价，重复的报价不需要每天维护 -->
+    <select id="getPriceByDate" resultType="Commodity">
+        select
+            c.id,
+            C.NAME,
+            C.CATALOG,
+            C.SUMMARY,
+            C.MAIN_URL mainUrl,
+            DP.PRICE,
+            DP.PRICE_DATE priceDate,
+            DP.unit
+        FROM commodity c
+        left join (
+            SELECT * FROM
+            (
+                select *
+                from djhgy.daily_price
+                where price_date &lt;= #{date}
+                order by commodity_id, price_date desc
+            ) t group by commodity_id) dp
+      on c.id = dp.commodity_id;
+    </select>
+   
+    <select id="getCommodityById" resultType="Commodity">
+        SELECT
+          id,
+          name,
+          catalog,
+          summary,
+          description,
+          main_url mainUrl
+        FROM djhgy.commodity
+        WHERE id = #{id};
+    </select>
+
+    <update id="updateCommodity" parameterType="Commodity">
+        UPDATE commodity
+        SET
+            name = #{name},
+            catalog =  #{catalog},
+            summary = #{summary},
+            description = #{description},
+            main_url = #{mainUrl}
+        WHERE id = #{id}
+    </update>
+
+    <select id="checkDailyPriceExist" resultType="java.lang.Integer">
+        SELECT count(*) FROM daily_price WHERE commodity_id = #{id} and price_date = #{date}
+    </select>
+
+    <update id="updateDailyPrice">
+        UPDATE daily_price
+        SET
+          price = #{price},
+          unit = #{unit}
+        where
+          commodity_id = #{id}
+          and price_date = #{date}
+    </update>
+
+    <insert id="addDailyPrice">
+        insert into daily_price values(null, #{id}, #{price}, #{unit}, #{date})
+    </insert>
+
+</mapper>

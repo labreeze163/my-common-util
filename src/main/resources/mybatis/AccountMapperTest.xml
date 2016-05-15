@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.dao.AccountDao">
+    <resultMap id="AccountMap" type="com.spring.model.Account">
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="type" property="type" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="BIGINT"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="device_id" property="deviceId" jdbcType="VARCHAR"/>
+        <result column="fingerprint" property="fingerprint" jdbcType="VARCHAR"/>
+        <result column="first_ip" property="firstIp" jdbcType="VARCHAR"/>
+        <result column="phone_num" property="phoneNum" jdbcType="VARCHAR"/>
+        <result column="phone_num_bind_time" property="phoneNumBindTime" jdbcType="BIGINT"/>
+        <result column="is_visit_interest" property="isVisitInterest" jdbcType="TINYINT"/>
+        <result column="last_visit_interest_time" property="lastVisitInterestTime" jdbcType="BIGINT"/>
+        <result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR"/>
+        <result column="invite_account_id_new" property="inviteAccountIdNew" jdbcType="VARCHAR"/>
+        <result column="invite_prize_times_new" property="invitePrizeTimesNew" jdbcType="TINYINT"/>
+        <result column="has_paid_order" property="hasPaidOrder" jdbcType="TINYINT"/>
+        <result column="level" property="level" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Account_Column">
+      user_name,user_id,type,create_time,update_time,nickname,device_id,fingerprint,first_ip,phone_num,phone_num_bind_time,
+      is_visit_interest,last_visit_interest_time,head_img_url,invite_account_id_new,invite_prize_times_new,has_paid_order,level
+    </sql>
+
+    <select id="getAccount" resultMap="AccountMap" parameterType="java.lang.String">
+        select <include refid="Account_Column"/>
+        from account where user_name=#{user_name,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertAccount" parameterType="com.spring.model.Account">
+        insert into account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="deviceId != null">
+                device_id,
+            </if>
+            <if test="fingerprint != null">
+                fingerprint,
+            </if>
+            <if test="firstIp != null">
+                first_ip,
+            </if>
+            <if test="phoneNum != null">
+                phone_num,
+            </if>
+            <if test="phoneNumBindTime != null">
+                phone_num_bind_time,
+            </if>
+            <if test="isVisitInterest != null">
+                is_visit_interest,
+            </if>
+            <if test="lastVisitInterestTime != null">
+                last_visit_interest_time,
+            </if>
+            <if test="headImgUrl != null">
+                head_img_url,
+            </if>
+            <if test="inviteAccountIdNew != null">
+                invite_account_id_new,
+            </if>
+            <if test="invitePrizeTimesNew != null">
+                invite_prize_times_new,
+            </if>
+            <if test="hasPaidOrder != null">
+                has_paid_order,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceId != null">
+                #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="fingerprint != null">
+                #{fingerprint,jdbcType=VARCHAR},
+            </if>
+            <if test="firstIp != null">
+                #{firstIp,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                #{phoneNum,jdbcType=VARCHAR},
+            </if>
+             <if test="phoneNumBindTime != null">
+                #{phoneNumBindTime,jdbcType=BIGINT},
+            </if>
+            <if test="isVisitInterest != null">
+                #{isVisitInterest,jdbcType=TINYINT},
+            </if>
+            <if test="lastVisitInterestTime != null">
+                #{lastVisitInterestTime,jdbcType=BIGINT},
+            </if>
+            <if test="headImgUrl != null">
+                #{headImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="inviteAccountIdNew != null">
+                #{inviteAccountIdNew,jdbcType=VARCHAR},
+            </if>
+            <if test="invitePrizeTimesNew != null">
+                #{invitePrizeTimesNew,jdbcType=TINYINT},
+            </if>
+            <if test="hasPaidOrder != null">
+                #{hasPaidOrder,jdbcType=TINYINT},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAccountByUserName" parameterType="com.spring.model.Account">
+        update account
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceId != null">
+                device_id = #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="fingerprint != null">
+                fingerprint = #{fingerprint,jdbcType=VARCHAR},
+            </if>
+            <if test="firstIp != null">
+                first_ip = #{firstIp,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                phone_num = #{phoneNum,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumBindTime != null">
+                phone_num_bind_time = #{phoneNumBindTime,jdbcType=BIGINT},
+            </if>
+            <if test="isVisitInterest != null">
+                is_visit_interest = #{isVisitInterest,jdbcType=TINYINT},
+            </if>
+            <if test="lastVisitInterestTime != null">
+                last_visit_interest_time = #{lastVisitInterestTime,jdbcType=BIGINT},
+            </if>
+            <if test="headImgUrl != null">
+                head_img_url = #{headImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="inviteAccountIdNew != null">
+                invite_account_id_new = #{inviteAccountIdNew,jdbcType=VARCHAR},
+            </if>
+            <if test="invitePrizeTimesNew != null">
+                invite_prize_times_new = #{invitePrizeTimesNew,jdbcType=TINYINT},
+            </if>
+            <if test="hasPaidOrder != null">
+                has_paid_order = #{hasPaidOrder,jdbcType=TINYINT},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=TINYINT},
+            </if>
+        </set>
+        where user_name = #{userName, jdbcType=VARCHAR}
+    </update>
+
+    <select id="queryUserName" resultType="java.lang.String" parameterType="java.util.Map">
+        select user_name from account
+        <where>
+            <if test="startTime != null">
+                <![CDATA[
+                and create_time >= #{startTime}
+                ]]>
+            </if>
+            <if test="endTime != null">
+                <![CDATA[
+                and create_time <= #{endTime}
+                ]]>
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+        order by create_time asc
+        limit #{offset},#{pageSize}
+    </select>
+
+    <select id="queryUserNameCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(1) from account
+        <where>
+            <if test="startTime != null">
+                <![CDATA[
+                and create_time >= #{startTime}
+                ]]>
+            </if>
+            <if test="endTime != null">
+                <![CDATA[
+                and create_time <= #{endTime}
+                ]]>
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryPhoneNumByUserNameList" resultMap="AccountMap" parameterType="java.util.List">
+        SELECT user_name,phone_num FROM account
+        WHERE phone_num != '' and user_name in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryByUserNameList" resultMap="AccountMap" parameterType="java.util.List">
+        SELECT <include refid="Account_Column"/> FROM account
+        WHERE user_name in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryByCondtion" resultMap="AccountMap" parameterType="com.spring.model.Account">
+        SELECT <include refid="Account_Column"/> FROM account
+        <where>
+            <if test="phoneNum != null">
+                and phone_num = #{phoneNum}
+            </if>
+        </where>
+    </select>
+
+</mapper>
