@@ -12,19 +12,23 @@ import java.util.List;
 public class ListsTransform {
 
     /**
+     * 0. 源列表不能为空 否则会报npe
      * 1. 源列表发生变更  transform的列表也同步变更
      * 2. transform的列表是不可变的, 不能手动对transform进行修改,即使对象的属性也是不能重新设置的
      * @param args
      */
     public static void main(String[] args) {
-        List<PersonDb> personDbs = Lists.newArrayList(new PersonDb("zhangsan", 10),
-                new PersonDb("lisi", 20), new PersonDb("wangwu", 30));
+        List<PersonDb> personDbs = null;
         List<PersonVo> personVos = Lists.transform(personDbs, new Function<PersonDb, PersonVo>() {
 
             public PersonVo apply(PersonDb personDb) {
                 return personDbToVo(personDb);
             }
         });
+        System.out.println(personVos);
+
+        personDbs = Lists.newArrayList(new PersonDb("zhangsan", 10),
+                new PersonDb("lisi", 20), new PersonDb("wangwu", 30));
         System.out.println(personVos);
 
         for(PersonDb personDb : personDbs) {
