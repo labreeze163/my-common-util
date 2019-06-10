@@ -57,78 +57,80 @@ public class ListsTransform {
     }
 
 
-}
 
-class PersonDb {
-    private String name;
-    private int age;
-    private String msg;
-    public PersonDb(String name, int age){
-        this.name = name;
-        this.age = age;
+    static class PersonDb {
+        private String name;
+        private int age;
+        private String msg;
+        public PersonDb(String name, int age){
+            this.name = name;
+            this.age = age;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+        @Override
+        public String toString() {
+            return JSONObject.toJSONString(this);
+        }
     }
 
-    public String getName() {
-        return name;
+
+    static class PersonVo {
+        private String name;
+        private int age;
+        private String msg;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+
+        @Override
+        public String toString() {
+            return JSONObject.toJSONString(this);
+        }
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-    @Override
-    public String toString() {
-        return JSONObject.toJSONString(this);
-    }
-}
-
-
-class PersonVo {
-    private String name;
-    private int age;
-    private String msg;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    @Override
-    public String toString() {
-        return JSONObject.toJSONString(this);
-    }
 }
