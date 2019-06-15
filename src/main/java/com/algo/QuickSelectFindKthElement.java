@@ -1,53 +1,65 @@
 package com.algo;
 
+import java.util.Arrays;
+
 /**
  * Created by hzzhaolong on 19/6/11.
  */
 public class QuickSelectFindKthElement {
 
     public static void main(String[] args) {
-        int arr[] = {7, 10, 4, 3, 20, 15 };
+        int elements[] = {3, 1, 9, 2, 4, 5, 7, 6, 8, 0, 10 };
+        System.out.println(Arrays.toString(elements));
 
-        int pivotIndex = quickSelect(arr,4, 0, arr.length - 1 );
-        System.out.println("pivotIndex="+pivotIndex);
+        int pivotIndex = quickSelect(elements, 4, 0, elements.length -1);
+        System.out.println(elements[pivotIndex]);
     }
 
 
+    private static int quickSelect(int[] elements, int k, int begin, int end) {
 
+        System.out.println("===========================>");
+        int cmpData = elements[begin];
+        int left = begin, right = end;
+        while (left <= right) {
+            while (elements[left] >= cmpData && left <= right) {
+                left++;
+            }
 
-    private static int quickSelect(int[] elements, int k, int start, int end) {
+            while (elements[right] <= cmpData && right >= left) {
+                right--;
+            }
 
-        int pivot = getPivotByPartition(elements, start, end);
-
-        if (k == (pivot - start + 1)) {
-            System.out.println("pivot value="+elements[pivot]);
-            return pivot;
-        } else if (k < (pivot - start + 1)) {
-            return quickSelect(elements, k, start, pivot - 1);
-        } else {
-            return quickSelect(elements, k - (pivot - start + 1), pivot + 1, end);
-        }
-    }
-
-    private static int getPivotByPartition(int[] elements, int start, int end) {
-        int pivot = start;
-        int lessThan = start;
-
-        for (int i = start; i <= end; i++) {
-            int currentElement = elements[i];
-            if (currentElement < elements[pivot]) {
-                lessThan++;
-                int tmp = elements[lessThan];
-                elements[lessThan] = elements[i];
-                elements[i] = tmp;
+            if(left <= right) {
+                System.out.print("swap :" + elements[left] + "," + elements[right]);
+                swap(elements, left, right);
+                System.out.println( "==>" +Arrays.toString(elements));
+                left++;
+                right--;
             }
         }
-        int tmp = elements[lessThan];
-        elements[lessThan] = elements[pivot];
-        elements[pivot] = tmp;
-        //System.out.println(" --- array = " +Arrays.toString(elements));
-        return lessThan;
+
+        System.out.print("swap :" + elements[begin] + "," + elements[right]);
+        swap(elements, begin, right);
+        System.out.println("==>" +Arrays.toString(elements));
+
+
+        if(right + 1 == k) {
+            return right;
+        }else if(right + 1 > k) {
+            return quickSelect(elements, k, begin, right);
+        } else {
+           return quickSelect(elements, k, right, end);
+        }
     }
+
+    private static void swap(int[] elements, int index1, int index2) {
+        int tmp = elements[index1];
+        elements[index1] = elements[index2];
+        elements[index2] = tmp;
+    }
+
+
 
 
 

@@ -12,6 +12,7 @@ public class LockTest {
     public static void main(String[] args) throws InterruptedException {
 
         Lock lock = new ReentrantLock();
+        lock.lock();
         Condition condition = lock.newCondition();
         condition.await();
     }
