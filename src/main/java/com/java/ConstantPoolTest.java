@@ -12,6 +12,11 @@ public class ConstantPoolTest {
         Integer z = Integer.valueOf(123);
         Integer k = Integer.valueOf(123);
         System.out.println(z == k);   // true
+        Integer i1 = Integer.valueOf(200);
+        Integer i2 = Integer.valueOf(200);
+        Integer i3 = Integer.valueOf(200);
+        System.out.println(i1 == i2);
+        System.out.println(i2 == i3);
 
         String s1 = new String("aaa");
         String s2 = new String("aaa");
