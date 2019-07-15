@@ -6,6 +6,18 @@ import java.util.List;
 
 /**
  * Created by hzzhaolong on 19/5/23.
+ *
+ * 1. 泛型类
+ * 2. 泛型接口
+ * 3. 泛型方法
+ *
+ * // 泛型通配符
+ *  通配符就是 ?  ；当操作类型时，不需要使用类型的具体功能时，只使用Object类中的功能。那么可以用 ? 通配符来表未知类型。
+ *
+ * // 泛型上下边界
+ * ? extends T  入参必须是T的子类
+ * ? super T 入参必须是T的父类
+ *
  */
 public class GenericTypeTest {
 
