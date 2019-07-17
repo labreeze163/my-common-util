@@ -52,12 +52,26 @@ public class LambdaTest {
         System.out.println();
 
 
-        // 方法引用
+        // Supplier
         Account account = new Account();
         Supplier<String> getName = account::getName;
         System.out.println(getName.get());
 
-        // 复合Lambda
+        // 复合predicate
+        Predicate<String> predicateNames = (String name) -> name.startsWith("wang");
+        Predicate<String> predicateNames2 = predicateNames.or((String name) -> name.startsWith("zhao"));
+        filteredNames = test(originNames, predicateNames2);
+        System.out.println("jdk define complext predicate :" + JSON.toJSONString(filteredNames));
+
+        // 复合function
+        Function<Integer, Integer> function1 = (Integer number) -> number + 1;
+        Function<Integer, Integer> function2 = function1.andThen((Integer number) -> number + 1);
+        System.out.print("jdk define Complex function begin:");
+        numbers = plus1(Lists.newArrayList(1, 2, 3, 4, 5), function2);
+        System.out.print(JSON.toJSONString(numbers));
+        System.out.println();
+
+
     }
 
     private static void process(Runnable runnable) {
